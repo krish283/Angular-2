@@ -35,7 +35,7 @@
                 
               </thead>
                 <tbody>
-                    <tr *ngFor= 'let number of products'>
+                    <tr *ngFor= 'let number of products | productFilter:listFilter'>
                         <td>
                             <img *ngIf ='showImage'
                             [src]='number.imageUrl'
@@ -43,12 +43,15 @@
                             [style.width.px]='imageWidth'
                             [style.margin.px]='marginWidth'>
                         </td>
-                        <td>{{number.productId}}</td>
-                        <td>{{number.productName}}</td>
+                        <td><a [routerLink]="['/number',number.productId]">{{number.productName}}</a></td>
                         <td>{{number.productCode}}</td>
                         <td>{{number.releaseDate}}</td>
                         <td>{{number.price | currency:'INR':true:'1.2-2'}}</td>
-                        <td>{{number.starRating}}</td>
+                        <td>
+                            <ai-star [rating]='number.starRating'
+                            (ratingClicked)='onRatingClicked($event)'>
+                           </ai-star>
+                        </td>
                 </tbody>
                 
           </table>
